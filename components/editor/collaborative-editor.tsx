@@ -37,8 +37,13 @@ export function CollaborativeEditor({
     if (!session?.user) return;
 
     // Set up WebSocket provider for real-time collaboration
+    const defaultWebSocketUrl =
+      typeof window !== "undefined"
+        ? `${window.location.protocol === "https:" ? "wss" : "ws"}://${window.location.host}/ws`
+        : "ws://localhost:1234";
+
     const wsProvider = new WebsocketProvider(
-      process.env.NEXT_PUBLIC_WS_URL || "ws://localhost:1234",
+      process.env.NEXT_PUBLIC_WS_URL || defaultWebSocketUrl,
       documentId,
       ydoc
     );
@@ -60,7 +65,9 @@ export function CollaborativeEditor({
       }
     });
 
-    wsProvider.on("synced", () => {
+    wsProvider.on("sync", (isSynced: boolean) => {
+      if (!isSynced) return;
+
       console.log("WebSocket synced");
       // After syncing with server, if document is still empty, load from database
       if (!initialContentLoaded && initialContent) {

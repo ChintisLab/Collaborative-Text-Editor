@@ -81,7 +81,7 @@ export function ShareDialog({
             <DialogTitle className="text-2xl">Share Document</DialogTitle>
           </div>
           <DialogDescription>
-            Share "{documentTitle}" with others to collaborate in real-time
+            Share &quot;{documentTitle}&quot; with others to collaborate in real-time
           </DialogDescription>
         </DialogHeader>
 

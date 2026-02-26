@@ -8,7 +8,9 @@
     "start": "next start",
     "lint": "next lint",
     "server": "node server/websocket-server.js",
-    "dev:all": "concurrently \"npm run dev\" \"npm run server\""
+    "dev:all": "concurrently \"npm run dev\" \"npm run server\"",
+    "start:combined": "NODE_ENV=production node server/combined-server.js",
+    "start:railway": "prisma db push && npm run start:combined"
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.10.0",
